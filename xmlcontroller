@@ -1,0 +1,59 @@
+public class XMLController {
+
+   public List<Contact>CT {get;set;}
+   public string xmlstring { get; set;}
+   public list <string> can { get; set;}
+   public string tempcan{ get; set;}
+   
+   public List<Contact> getContacts() {
+List<Contact> conresults = [Select Id, FirstName, LastName,Title,Email from Contact limit 1 ];
+return conresults;
+ 
+ }
+ 
+     public void startRequest() 
+     {
+     
+        DOM.Document doc = new DOM.Document();
+        Dom.Xmlnode rootNode = doc.createRootElement('response', null, null);
+        
+        List<Contact> conresults = [Select Id, FirstName, LastName,Title,Email from Contact limit 1];
+        
+        for (Contact eachContact : conresults) {
+        Dom.Xmlnode contactNode = RootNode.addChildElement('Contact', null, null);
+        contactNode.setAttribute('id', eachcontact.Id);
+        contactNode.setAttribute('LastName', eachcontact.LastName);
+        }
+        
+        xmlstring = doc.toXmlString();
+
+    }
+    
+    public void deserilize(){
+    
+    List<candidate__c> can = new List<candidate__c> ();
+
+     DOM.Document doc=new DOM.Document();
+     doc.load(xmlstring);
+     dom.XmlNode xroot = doc.getrootelement() ;
+
+dom.XmlNode [] xrec = xroot.getchildelements() ; 
+
+for(Dom.XMLNode child : xrec) 
+{
+ candidate__c a = new candidate__c ();
+ for (dom.XmlNode awr : child.getchildren() ) {
+                         if (awr.getname() == 'Contact id') {
+                               system.debug('Contact id' + awr.gettext());
+                               a.contactid__c = awr.gettext();
+ }  
+ if (awr.getname() == 'LastName') {
+                               system.debug('LastName' + awr.gettext());
+                               a.Name = awr.gettext();
+ }  
+}
+   can.add(a);  
+ }  
+ system.debug(can);   
+}
+}
