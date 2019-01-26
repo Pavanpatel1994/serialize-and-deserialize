@@ -1,0 +1,25 @@
+<apex:page controller="XMLController" >
+    <apex:form >
+        <apex:pageBlock >
+        <apex:pageBlockTable value="{!contacts}" var="c">
+                 <apex:column value="{!c.id}"/>
+                <apex:column value="{!c.FirstName}"/>
+                <apex:column value="{!c.LastName}"/>
+                <apex:column value="{!c.Title}"/>
+                <apex:column value="{!c.email}"/>
+        </apex:pageblocktable>
+        </apex:pageBlock>
+        <apex:pageBlock >
+           <apex:commandButton action="{!startRequest}" value="Serilize data"/>
+           <apex:outputText value="{!xmlstring}"/>
+        </apex:pageBlock>
+        <apex:pageBlock >
+           <apex:commandButton action="{!deserilize}" value="Deserialize"/>
+           
+           <apex:outputText value="{'!tempcan'}"/>
+        </apex:pageBlock>
+        
+        
+        </apex:form>
+        
+</apex:page>
